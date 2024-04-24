@@ -21,5 +21,8 @@ app.use((req, res, next) => {
 const userRoutes = require('./routes/users');
 app.use('/api/auth', userRoutes);
 
+const beerRoutes = require('./routes/beers');
+app.use('/api/beers', beerRoutes);
+
  
 module.exports = app;
