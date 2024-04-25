@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
+
 
 mongoose.connect('mongodb+srv://ahkhiat:Afpa2024@cluster0.l3uiknn.mongodb.net/db_test?retryWrites=true&w=majority&appName=Cluster0')
 .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -9,6 +11,7 @@ mongoose.connect('mongodb+srv://ahkhiat:Afpa2024@cluster0.l3uiknn.mongodb.net/db
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/images', express.static(path.join(__dirname,'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,6 +26,9 @@ app.use('/api/auth', userRoutes);
 
 const beerRoutes = require('./routes/beers');
 app.use('/api/beers', beerRoutes);
+
+const sodaRoutes = require('./routes/sodas');
+app.use('/api/sodas', sodaRoutes);
 
  
 module.exports = app;
