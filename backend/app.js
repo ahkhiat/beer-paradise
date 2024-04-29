@@ -2,14 +2,21 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+const helmet = require('helmet');
+require('dotenv').config();
 
 
-mongoose.connect('mongodb+srv://ahkhiat:Afpa2024@cluster0.l3uiknn.mongodb.net/db_test?retryWrites=true&w=majority&appName=Cluster0')
+
+mongoose.connect(process.env.MONGODB_PATH)
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+ }));
 
 app.use('/images', express.static(path.join(__dirname,'images')));
 
